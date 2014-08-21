@@ -1,0 +1,19 @@
+Initialize engine version: 4.5.3f3 (fca41a4fabea)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [nvumdshim.dll 9.18.13.4052]
+    Renderer: NVIDIA GeForce GTX 680M    
+    Vendor:   NVIDIA
+    VRAM:     4027 MB (via DXGI)
+    Caps:     Shader=30 DepthRT=1 NativeDepth=1 NativeShadow=1 DF16=0 INTZ=1 RAWZ=0 NULL=1 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\ZSeba\Documents\tallervideojuegos-plataformas\bn_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\ZSeba\Documents\tallervideojuegos-plataformas\bn_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\ZSeba\Documents\tallervideojuegos-plataformas\bn_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\ZSeba\Documents\tallervideojuegos-plataformas\bn_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\ZSeba\Documents\tallervideojuegos-plataformas\bn_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\ZSeba\Documents\tallervideojuegos-plataformas\bn_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+- Completed reload, in  0.044 seconds
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
