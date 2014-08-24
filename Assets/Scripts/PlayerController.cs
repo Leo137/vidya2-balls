@@ -64,8 +64,9 @@ public class PlayerController : MonoBehaviour {
 			} else if (isLaunching) {
 				this.rigidbody.isKinematic = false;
 				this.rigidbody.AddForce(cameraObject.transform.forward * currentImpulse, ForceMode.Impulse);
-				isLaunching = false;
-				isInPlay = resetCamera = true;
+				isLaunching = resetCamera = false;
+				isInPlay = true;
+                cameraObject.GetComponent<SmoothFollow>().target = transform;
 				this.audio.Stop();
 				this.audio.PlayOneShot(launchingSound);
 			} else {
@@ -83,7 +84,6 @@ public class PlayerController : MonoBehaviour {
 				this.rigidbody.AddForce(Vector3.up * jumpImpulse, ForceMode.Impulse);
 			}
 		}
-
 		if (resetCamera) {
 			cameraObject.camera.fieldOfView += cameraFovDelta * cameraResetMultiplier;
 			cameraObject.camera.transform.position += cameraObject.transform.forward * cameraPullbackDelta * cameraResetMultiplier;
