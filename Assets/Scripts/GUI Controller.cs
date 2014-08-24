@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MasterController : MonoBehaviour {
+public class GuiController : MonoBehaviour {
 	public static int PlatformsTouched { get; set; }
 	public static bool WallTouched { get; set;}
 	public static bool ReturnedToPlayer { get; set; }
