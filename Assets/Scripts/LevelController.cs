@@ -39,6 +39,8 @@ public class LevelController : MonoBehaviour {
         touchedFloor = false;
         isTimeToLiveDone = false;
         markedForDeath = false;
+		CancelInvoke ("resetAfterTime");
+		CancelInvoke ("checkTTL");
 		CancelInvoke ();
 	}
     void checkTTL()
@@ -87,7 +89,10 @@ public class LevelController : MonoBehaviour {
         ResetChecker();
 		Timer -= Time.deltaTime;
 		if (Timer < 0) {
+			first = true;
+			points = 0;
 			Application.LoadLevel("menu");
+
 		}
 	}
 	
