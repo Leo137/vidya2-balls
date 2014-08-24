@@ -14,20 +14,32 @@ public class LevelController : MonoBehaviour {
 	public GUIText hitTargetGUI;
 	public GUIText returnedGUI;
 	public GUIText timerGUI;
+	public GUIText scoreGUI;
+
     public bool touchedFloor;
 	public int bounceNumber = 1;
     bool isTimeToLiveDone;
     bool markedForDeath;
+	public static int points = 0;
+	static bool first = true;
 	// Use this for initialization
+
+	void Start(){
+
+	}
 	void Awake() {
 		PlatformsTouched = 0;
 		WallTouched = ReturnedToPlayer = false;
 		
 		CurrentPlayer = 1;
-		Timer = timerLengthSeconds;
+		if (first) {
+			first = false;
+						Timer = timerLengthSeconds;
+				}
         touchedFloor = false;
         isTimeToLiveDone = false;
         markedForDeath = false;
+		CancelInvoke ();
 	}
     void checkTTL()
     {
@@ -74,6 +86,9 @@ public class LevelController : MonoBehaviour {
 		}
         ResetChecker();
 		Timer -= Time.deltaTime;
+		if (Timer < 0) {
+			Application.LoadLevel("menu");
+		}
 	}
 	
 	void LateUpdate() {
@@ -84,10 +99,11 @@ public class LevelController : MonoBehaviour {
             if (!markedForDeath)
             {
                 //Manda a matar a la pelota en caso de que se quede rebotando mucho rato
-                Invoke("checkTTL", 3f);
+                Invoke("checkTTL", 5f);
                 markedForDeath = true;
             }
         }
+		scoreGUI.text = "Puntaje: " + points;
 		if (ReturnedToPlayer) this.returnedGUI.text = "Llego!";
 		timerGUI.text = string.Format("{0,2:N0}:{1,2:N0}", Timer / 60, Timer % 60);
 	}
