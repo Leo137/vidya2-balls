@@ -14,7 +14,8 @@ public class LevelController : MonoBehaviour {
 	public GUIText hitTargetGUI;
 	public GUIText returnedGUI;
 	public GUIText timerGUI;
-	
+    public bool touchedFloor;
+	public int bounceNumber = 2;
 	// Use this for initialization
 	void Awake() {
 		PlatformsTouched = 0;
@@ -22,13 +23,33 @@ public class LevelController : MonoBehaviour {
 		
 		CurrentPlayer = 1;
 		Timer = timerLengthSeconds;
+        touchedFloor = false;
 	}
-	
+    void resetAfterTime()
+    {
+        //Es para poder invocar el cambio de nivel despues de un tiempo dado
+        //usando Invoke()
+        Application.LoadLevel(Application.loadedLevelName);
+    }
+    bool ResetChecker()
+    {
+        //Revisa si se cumplen las condiciones para que la pelota vuelva al juego
+        //True: Si dentro de las condiciones permiten que el jugador obtenga un punto
+        //False: En cualquier otro caso
+        if (WallTouched && PlatformsTouched < bounceNumber ||
+            !WallTouched && touchedFloor)
+        {
+            //Por ahora que en todos esos casos simplemente se resetee el nivel
+            Invoke("resetAfterTime", 0.5f);
+        }
+        return false;
+    }
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.F5)) {
 			Debug.Log("Reset");
 			Application.LoadLevel(Application.loadedLevelName);
 		}
+        ResetChecker();
 		Timer -= Time.deltaTime;
 	}
 	
