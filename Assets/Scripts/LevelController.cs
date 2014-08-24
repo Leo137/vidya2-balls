@@ -15,7 +15,9 @@ public class LevelController : MonoBehaviour {
 	public GUIText returnedGUI;
 	public GUIText timerGUI;
     public bool touchedFloor;
-	public int bounceNumber = 2;
+	public int bounceNumber = 1;
+    bool isTimeToLiveDone;
+    bool markedForDeath;
 	// Use this for initialization
 	void Awake() {
 		PlatformsTouched = 0;
@@ -24,7 +26,14 @@ public class LevelController : MonoBehaviour {
 		CurrentPlayer = 1;
 		Timer = timerLengthSeconds;
         touchedFloor = false;
+        isTimeToLiveDone = false;
+        markedForDeath = false;
 	}
+    void checkTTL()
+    {
+        //Avisa de que se cumplio el TTL
+        isTimeToLiveDone = true;
+    }
     void resetAfterTime()
     {
         //Es para poder invocar el cambio de nivel despues de un tiempo dado
@@ -42,6 +51,20 @@ public class LevelController : MonoBehaviour {
             //Por ahora que en todos esos casos simplemente se resetee el nivel
             Invoke("resetAfterTime", 0.5f);
         }
+        else
+        {
+            if (isTimeToLiveDone)
+            {
+                //No alcanzo a llegar a la meta
+                resetAfterTime();
+            }
+            else if (ReturnedToPlayer && !isTimeToLiveDone)
+            {
+                //Llego a la meta antes del tiempo
+                Invoke("resetAfterTime", 0.5f);
+                return true;
+            }
+        }
         return false;
     }
 	void Update() {
@@ -55,7 +78,16 @@ public class LevelController : MonoBehaviour {
 	
 	void LateUpdate() {
 		this.platformCountGUI.text = string.Format("Plataformas: {0}", PlatformsTouched);
-		if (WallTouched) this.hitTargetGUI.text = "Yay!";
+        if (WallTouched)
+        {
+            this.hitTargetGUI.text = "Yay!";
+            if (!markedForDeath)
+            {
+                //Manda a matar a la pelota en caso de que se quede rebotando mucho rato
+                Invoke("checkTTL", 3f);
+                markedForDeath = true;
+            }
+        }
 		if (ReturnedToPlayer) this.returnedGUI.text = "Llego!";
 		timerGUI.text = string.Format("{0,2:N0}:{1,2:N0}", Timer / 60, Timer % 60);
 	}
